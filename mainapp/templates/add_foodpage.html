@@ -1,0 +1,133 @@
+
+{% extends "dashboard.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Food Type</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin:;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 420px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #ff5e62;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff5e62, #ff9966);
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .image-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .card {
+    width: 420px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Add Food Type</h2>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save_food_type' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="name">Food Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter food name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" placeholder="Enter food description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="foodimage">Food Image</label>
+            <input type="file" name="foodimage" id="foodimage" accept="image/*" required>
+            <div class="image-note">Upload JPG, PNG or WEBP image</div>
+        </div>
+
+        <button type="submit" class="btn-submit">Save Food</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
