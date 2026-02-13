@@ -193,14 +193,9 @@ def view_service(request):
 
 #contact us page
 def contact_us_page(request):
-    return render(request,'contact.html')
+    contact=contactDb.objects.all()
+    return render(request,'contact.html',{'contact':contact})
+    
 
 
-#sign inup page
 
-def sign_in_page(request):
-    return render(request,'sign_in.html')
-
-
-def signUp_page(request):
-    return render(request,'signUp.html')

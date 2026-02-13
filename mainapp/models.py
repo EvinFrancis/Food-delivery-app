@@ -36,3 +36,12 @@ class serviceDb(models.Model):
     ServiceImage=models.ImageField(upload_to="services")
     def __str__(self):
         return self.ServiceName
+    
+class contactDb(models.Model):
+    name=models.CharField(max_length=100)
+    email=models.EmailField()
+    message=models.TextField()
+    subject=models.CharField(max_length=200,default='No Subject')
+    created_at=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name

@@ -25,8 +25,7 @@ urlpatterns = [
     path('save_service/',views.save_service,name='save_service'),
     path('view_service/',views.view_service,name='view_service'),
     path('contact_us_page/',views.contact_us_page,name='contact_us_page'),
-    path('sign_in_page/',views.sign_in_page,name='sign_in_page'),
-    path('signUp_page/',views.signUp_page,name='signUp_page'),
+ 
 
     
   
