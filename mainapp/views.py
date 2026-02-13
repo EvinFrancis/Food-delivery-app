@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -89,3 +90,117 @@ def update_food_type(request,food_id):
 def add_restaurant_page(request):
     return render(request,'add_rest.html')
 
+#save restaurant
+def save_restaurant(request):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        address=request.POST.get('address')
+        contact_number=request.POST.get('contact_number')
+        restaurant_image=request.FILES.get('restaurant_image')
+        obj=restaurantDb(name=name,address=address,contact_number=contact_number,restaurant_image=restaurant_image)
+        obj.save()
+        return redirect(add_restaurant_page)
+    #view restaurants``
+def view_restaurants(request):
+    restaurants=restaurantDb.objects.all()
+    return render(request,'view_rest.html',{'restaurants':restaurants})
+
+
+#delete restaurant
+def delete_restaurant(request,rest_id): 
+    restaurant=restaurantDb.objects.get(id=rest_id)
+    restaurant.delete() 
+    return redirect(view_restaurants)
+
+#edit restaurant
+def edit_restaurant(request,rest_id):
+    restaurant=restaurantDb.objects.get(id=rest_id)
+    
+    return render(request,'edit_rest.html',{'restaurant':restaurant})
+
+#update restaurant
+def update_restaurant(request,rest_id):
+    if request.method=="POST":
+        name=request.POST.get('name')
+        address=request.POST.get('address')
+        contact_number=request.POST.get('contact_number')
+        if request.FILES.get('restaurant_image'):
+            restaurant_image=request.FILES.get('restaurant_image')
+        else:
+            restaurant_image=restaurantDb.objects.get(id=rest_id).restaurant_image
+        obj=restaurantDb.objects.filter(id=rest_id).update(name=name,address=address,contact_number=contact_number,restaurant_image=restaurant_image)
+        return redirect(view_restaurants)
+    
+# add new dishes page
+def add_dishes_page(request):
+    provide_foodtypes=FoodType.objects.all()
+    provide_restaurants=restaurantDb.objects.all()
+    return render(request,'add_dishes.html',
+                  {
+        'food_types':provide_foodtypes,
+        'restaurants':provide_restaurants
+    }
+    )
+# save new dishes
+def save_dishes(request):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        description=request.POST.get('description')
+        price=request.POST.get('price')
+        food_type=request.POST.get('food_type')
+        restaurant=request.POST.get('restaurant')
+        dish_image=request.FILES.get('dish_image')
+        veg_nonveg=request.POST.get('veg_nonveg')
+        obj=dishesDb(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
+        obj.save()
+        return redirect(add_dishes_page)
+
+#view dishes
+def view_dishes(request):
+    dishes=dishesDb.objects.all()
+    return render(request,'view_dishes.html',{'dishes':dishes})
+
+#delete dish
+def delete_dish(request,dish_id): 
+    dish=dishesDb.objects.get(id=dish_id) 
+    dish.delete()
+    return redirect(view_dishes)
+
+#service page
+def add_service_page(request):
+    return render(request,'add_service.html')
+
+#save service
+def save_service(request):
+    if request.method=='POST':
+        ServiceName=request.POST.get('ServiceName')
+        Description=request.POST.get('Description')
+        ServiceImage=request.FILES.get('ServiceImage')
+        obj=serviceDb(ServiceName=ServiceName,Description=Description,ServiceImage=ServiceImage)
+        obj.save()
+        return redirect(add_service_page)
+
+#view service
+def view_service(request):
+    services=serviceDb.objects.all()
+    return render(request,'view_service.html',{'services':services})
+
+# def delete_service(request,service_id):
+#     service=serviceDb.objects.get(id=service_id)
+#     service.delete()
+#     return redirect(view_service)
+
+
+#contact us page
+def contact_us_page(request):
+    return render(request,'contact.html')
+
+
+#sign inup page
+
+def sign_in_page(request):
+    return render(request,'sign_in.html')
+
+
+def signUp_page(request):
+    return render(request,'signUp.html')

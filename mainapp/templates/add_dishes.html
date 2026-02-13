@@ -1,0 +1,122 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<style>
+    .form-card {
+        max-width: 520px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .form-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: none;
+        height: 90px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #ff5e62, #ff9966);
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="form-card">
+    <h2>Add Dish</h2>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save_dishes' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Dish Name</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" step="0.01" name="price" required>
+        </div>
+
+        <div class="form-group">
+            <label>Restaurant</label>
+            <select name="restaurant" required>
+                <option value="">Select Restaurant</option>
+                {% for r in restaurants %}
+                    <option value="{{ r.name}}">{{ r.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Food Type</label>
+            <select name="food_type" required>
+                <option value="">Select Food Type</option>
+                {% for f in food_types %}
+                    <option value="{{ f.name }}">{{ f.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Dish Image</label>
+            <input type="file" name="dish_image" accept="image/*" required>
+        </div>
+        <div class="form-group">
+    <label>Category</label>
+    <div style="display:flex; gap:20px;">
+        <label>
+            <input type="radio" name="veg_nonveg" value="veg" checked>
+            Veg
+        </label>
+        <label>
+            <input type="radio" name="veg_nonveg" value="non_veg">
+            Non Veg
+        </label>
+    </div>
+</div>
+
+
+        <button type="submit" class="btn-submit">Save Dish</button>
+    </form>
+</div>
+
+{% endblock %}

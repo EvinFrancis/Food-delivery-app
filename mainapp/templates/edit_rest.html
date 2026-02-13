@@ -1,0 +1,128 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<style>
+    .edit-card {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .edit-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    textarea,
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: none;
+        height: 90px;
+    }
+
+    .current-img {
+        margin-top: 10px;
+    }
+
+    .current-img img {
+        width: 120px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .btn-update {
+        flex: 1;
+        padding: 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .btn-cancel {
+        flex: 1;
+        padding: 12px;
+        background: #6c757d;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+</style>
+
+<div class="edit-card">
+    <h2>Edit Restaurant</h2>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'update_restaurant' rest_id=restaurant.id %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Restaurant Name</label>
+            <input type="text" name="name" value="{{ restaurant.name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <textarea name="address" required>{{ restaurant.address }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Number</label>
+            <input type="tel" name="contact_number" value="{{ restaurant.contact_number }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Restaurant Image</label>
+            <input type="file" name="restaurant_image">
+
+            {% if restaurant.restaurant_image %}
+            <div class="current-img">
+                <small>Current Image:</small><br>
+                <img src="{{ restaurant.restaurant_image.url }}">
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="btn-update">Update</button>
+            <a href="{% url 'view_restaurants' %}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

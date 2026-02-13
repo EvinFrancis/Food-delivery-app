@@ -1,0 +1,70 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">📩 Contact Messages</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle shadow-sm">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contacts %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td>{{ c.Name }}</td>
+                    <td>
+                        <a href="mailto:{{ c.Email }}" class="text-decoration-none">
+                            {{ c.email }}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary">{{ c.Subject }}</span>
+                    </td>
+                    <td style="max-width: 300px;">
+                        <span class="text-truncate d-inline-block" style="max-width: 280px;">
+                            {{ c.Message }}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        {{ c.created_at|date:"d M Y" }} <br>
+                        <small class="text-muted">{{ c.created_at|time:"h:i A" }}</small>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-4">
+                        No messages found 🚫
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

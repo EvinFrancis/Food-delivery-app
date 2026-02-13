@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Food types</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -76,11 +76,25 @@
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Restaurant</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{% url 'add_restaurant_page' %}" class="dropdown-item">Add Restaurant</a>
-                            <a href="{% url 'view_food_types' %}" class="dropdown-item">View Restaurants</a>
+                            <a href="{% url 'view_restaurants' %}" class="dropdown-item">View Restaurants</a>
+                            
+                        </div>
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>New Dishes</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{% url 'add_dishes_page' %}" class="dropdown-item">Add Dishes</a>
+                            <a href="{% url 'view_dishes' %}" class="dropdown-item">View New Dishes</a>
+                            
+                        </div>
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Services</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{% url 'add_service_page' %}" class="dropdown-item">Add service</a>
+                            <a href="{% url 'view_service' %}" class="dropdown-item">View services</a>
                             
                         </div>
                     
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+                    <a href="{% url 'contact_us_page' %}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Contacts</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>

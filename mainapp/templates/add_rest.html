@@ -67,7 +67,7 @@
 <div class="form-card">
     <h2>Add Restaurant</h2>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save_restaurant' %}">
         {% csrf_token %}
 
         <div class="form-group">

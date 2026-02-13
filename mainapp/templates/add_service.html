@@ -1,0 +1,104 @@
+{% extends 'dashboard.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .form-card {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 35px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    .form-card h3 {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+        font-size: 14px;
+        color: #6c757d;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px 12px;
+    }
+
+    .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.15rem rgba(40,167,69,0.25);
+    }
+
+    .submit-btn {
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(40,167,69,0.35);
+    }
+</style>
+
+<section class="py-5">
+    <div class="container">
+        <div class="form-card">
+
+            <h3 class="text-center">Add New Service</h3>
+            <p class="form-subtitle">Fill in the details below to create a service</p>
+
+            <form method="POST" enctype="multipart/form-data" action="{% url 'save_service' %}">
+                {% csrf_token %}
+
+                <!-- Service Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Service Name</label>
+                    <input type="text"
+                           name="ServiceName"
+                           class="form-control"
+                           placeholder="Enter service name"
+                           required>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Description</label>
+                    <textarea name="Description"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Enter service description"
+                              required></textarea>
+                </div>
+
+                <!-- Service Image -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Service Image</label>
+                    <input type="file"
+                           name="ServiceImage"
+                           class="form-control"
+                           accept="image/*"
+                           required>
+                    <small class="text-muted">Supported formats: JPG, PNG, WEBP</small>
+                </div>
+
+                <!-- Submit -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success submit-btn">
+                        Add Service
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

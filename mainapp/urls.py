@@ -12,4 +12,23 @@ urlpatterns = [
     path('edit_food_type/<int:food_id>/',views.edit_food_type,name='edit_food_type'),
     path('update_food_type/<int:food_id>/',views.update_food_type,name='update_food_type'),
     path('add_restaurant_page/',views.add_restaurant_page,name='add_restaurant_page'),
+    path('save_restaurant/',views.save_restaurant,name='save_restaurant'),
+    path('view_restaurants/',views.view_restaurants,name='view_restaurants'),
+    path('delete_restaurant/<int:rest_id>/',views.delete_restaurant,name='delete_restaurant'),
+    path('edit_restaurant/<int:rest_id>/',views.edit_restaurant,name='edit_restaurant'),
+    path('update_restaurant/<int:rest_id>/',views.update_restaurant,name='update_restaurant'),
+    path('add_dishes_page/',views.add_dishes_page,name='add_dishes_page'),
+    path('save_dishes/',views.save_dishes,name='save_dishes'),
+    path('view_dishes/',views.view_dishes,name='view_dishes'), 
+    path('delete_dish/<int:dish_id>/',views.delete_dish,name='delete_dish'), 
+    path('add_service_page/',views.add_service_page,name='add_service_page'), 
+    path('save_service/',views.save_service,name='save_service'),
+    path('view_service/',views.view_service,name='view_service'),
+    path('contact_us_page/',views.contact_us_page,name='contact_us_page'),
+    path('sign_in_page/',views.sign_in_page,name='sign_in_page'),
+    path('signUp_page/',views.signUp_page,name='signUp_page'),
+
+    
+  
+
 ]
