@@ -14,7 +14,8 @@ from userapp.models import *
 def user_dashboard(request):
     restaurant=restaurantDb.objects.all()
     dishes=dishesDb.objects.all()
-    return render(request,'index.html',{'restaurant':restaurant,'dishes':dishes})  
+    return render(request,'index.html',{'restaurant':restaurant,
+                                        'dishes':dishes})  
 
 #contact us page
 def contact_us_page(request):
@@ -33,6 +34,8 @@ def restaurant_page(request):
 def services_page(request):
     service=serviceDb.objects.all()
     return render(request,'services.html',{'service':service})
+
+
 
 
 #contact us page

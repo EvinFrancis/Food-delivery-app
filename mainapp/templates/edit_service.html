@@ -1,0 +1,63 @@
+{% extends "dashboard.html" %}
+{% block content %}
+
+<style>
+    .form-card{
+        background:#fff;
+        padding:25px;
+        border-radius:14px;
+        box-shadow:0 12px 30px rgba(0,0,0,0.12);
+        max-width:700px;
+        margin:auto;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <h3 class="mb-3">✏️ Edit Service</h3>
+
+    <div class="form-card">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'update_service' service_id=service.id %}">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Service Name</label>
+                <input type="text"
+                       name="ServiceName"
+                       class="form-control"
+                       value="{{ service.ServiceName }}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="Description"
+                          class="form-control"
+                          rows="4"
+                          required>{{ service.Description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Current Image</label><br>
+                {% if service.ServiceImage %}
+                    <img src="{{ service.ServiceImage.url }}"
+                         width="120"
+                         class="mb-2 rounded border">
+                {% else %}
+                    <p class="text-muted">No Image</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Change Image</label>
+                <input type="file" name="ServiceImage" class="form-control">
+            </div>
+
+            <div class="text-end">
+                <a href="{% url 'view_service' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success">Update Service</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

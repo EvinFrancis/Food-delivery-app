@@ -191,6 +191,32 @@ def view_service(request):
 #     return redirect(view_service)
 
 
+#edit service page
+def edit_service_page(request,service_id):
+    service=serviceDb.objects.get(id=service_id)
+    return render(request,'edit_service.html',{'service':service})
+
+#update service
+def update_service(request,service_id):
+    if request.method=="POST":
+        service_name=request.POST.get('ServiceName')
+        Description=request.POST.get('Description')
+        if request.FILES.get('ServiceImage'):
+            ServiceImage=request.FILES.get('ServiceImage')
+#             🔹 One and only one object → get()
+# 🔹 Zero or many objects → filter()
+        else:
+            ServiceImage=serviceDb.objects.get(id=service_id).ServiceImage
+        obj=serviceDb.objects.filter(id=service_id).update(ServiceName=service_name,Description=Description,ServiceImage=ServiceImage)
+        return redirect(view_service)
+
+#delete service
+def delete_service(request,service_id):
+    service=serviceDb.objects.get(id=service_id)
+    service.delete()
+    return redirect(view_service)
+
+
 #contact us page
 def contact_us_page(request):
     contact=contactDb.objects.all()
