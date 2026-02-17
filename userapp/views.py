@@ -14,8 +14,10 @@ from userapp.models import *
 def user_dashboard(request):
     restaurant=restaurantDb.objects.all()
     dishes=dishesDb.objects.all()
+    latest_rest=restaurantDb.objects.first()
     return render(request,'index.html',{'restaurant':restaurant,
-                                        'dishes':dishes})  
+                                        'dishes':dishes,
+                                        'latest_rest':latest_rest})  
 
 #contact us page
 def contact_us_page(request):
