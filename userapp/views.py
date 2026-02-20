@@ -105,4 +105,9 @@ def user_logout(request):
 def view_cart(request):
     return render(request,'cart_page.html')
 
+#sevice page
+def service_page(request):
+    service=serviceDb.objects.all()
+    return render (request,"service.html",{"service":service})
+
 

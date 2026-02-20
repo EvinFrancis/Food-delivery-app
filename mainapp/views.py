@@ -151,6 +151,8 @@ def save_dishes(request):
         restaurant=request.POST.get('restaurant')
         dish_image=request.FILES.get('dish_image')
         veg_nonveg=request.POST.get('veg_nonveg')
+
+        
         obj=dishesDb(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
         obj.save()
         return redirect(add_dishes_page)
@@ -166,9 +168,27 @@ def delete_dish(request,dish_id):
     dish.delete()
     return redirect(view_dishes)
 
+#edit dishes
+def edit_dish(request,dish_id):
+    dish=dishesDb.objects.get(id=dish_id)
+    return render(request,'edit_dishes.html',{'dish':dish})
+
 #service page
 def add_service_page(request):
     return render(request,'add_service.html')
+
+
+#update dishes
+def update_dish(request,dish_id):
+    name=request.POST.get('name')
+    description=request.POST.get('description')
+    price=request.POST.get('price')
+    food_type=request.POST.get('food_type')
+    restaurant=request.POST.get('restaurant')
+    dish_image=request.FILES.get('dish_image')
+    veg_nonveg=request.POST.get('veg_nonveg')
+    obj=dishesDb.objects.filter(id=dish_id).update(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
+    return redirect(view_dishes)
 
 #save service
 def save_service(request):

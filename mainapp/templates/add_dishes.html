@@ -68,7 +68,7 @@
 
         <div class="form-group">
             <label>Description</label>
-            <textarea name="description" required></textarea>
+            <textarea name="description" ></textarea>
         </div>
 
         <div class="form-group">
@@ -88,7 +88,7 @@
 
         <div class="form-group">
             <label>Food Type</label>
-            <select name="food_type" required>
+            <select name="food_type" >
                 <option value="">Select Food Type</option>
                 {% for f in food_types %}
                     <option value="{{ f.name }}">{{ f.name }}</option>
@@ -98,20 +98,21 @@
 
         <div class="form-group">
             <label>Dish Image</label>
-            <input type="file" name="dish_image" accept="image/*" required>
+            <input type="file" name="dish_image" accept="image/*" >
         </div>
         <div class="form-group">
     <label>Category</label>
     <div style="display:flex; gap:20px;">
-        <label>
-            <input type="radio" name="veg_nonveg" value="veg" checked>
-            Veg
-        </label>
-        <label>
-            <input type="radio" name="veg_nonveg" value="non_veg">
-            Non Veg
-        </label>
-    </div>
+  <label>
+    <input type="radio" name="veg_nonveg" value="veg" >
+    Veg
+  </label>
+  <label>
+    <input type="radio" name="veg_nonveg" value="non_veg" >
+    Non Veg
+  </label>
+</div>
+
 </div>
 
 

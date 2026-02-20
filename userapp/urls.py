@@ -11,5 +11,6 @@ urlpatterns=[
     path('view_cart/',views.view_cart,name='view_cart'),
     path('contact_us/',views.contact_us,name='contact_us'),
     path('save_contact/',views.save_contact,name='save_contact'),
+    path('service_page/',views.service_page,name='service_page'),
 
 ]

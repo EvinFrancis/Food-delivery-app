@@ -106,10 +106,10 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ dish.name }}</td>
-            <td>{{ dish.restaurant.name }}</td>
-            <td>{{ dish.food_type.name }}</td>
+            <td>{{ dish.restaurant }}</td>
+            <td>{{ dish.food_type }}</td>
             <td>
-                {% if dish.food_category == 'veg' %}
+                {% if dish.veg_nonveg == 'veg' %}
                     <span class="badge veg">Veg</span>
                 {% else %}
                     <span class="badge non-veg">Non Veg</span>
@@ -124,7 +124,7 @@
                 {% endif %}
             </td>
             <td>
-                <a href="#" class="btn btn-edit">Edit</a>
+                <a href="{% url 'edit_dish' dish_id=dish.id %}" class="btn btn-edit">Edit</a>
 
                 <a href=" {% url "delete_dish" dish_id=dish.id   %}"
                    class="btn btn-delete"

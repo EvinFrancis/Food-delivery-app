@@ -29,7 +29,8 @@ urlpatterns = [
     path('update_service/<int:service_id>/',views.update_service,name='update_service'),
     path('update_service/<int:service_id>/',views.update_service,name='update_service'),
     path('delete_service/<int:service_id>/',views.delete_service,name='delete_service'),
- 
+    path('edit_dish/<int:dish_id>/',views.edit_dish,name='edit_dish'),
+    path('update_dish/<int:dish_id>/',views.update_dish,name='update_dish'),
 
     
   
