@@ -52,12 +52,12 @@ textarea {
     <h2>Edit Dish</h2>
 
     <form method="POST" enctype="multipart/form-data"
-          action="{% url 'update_dish' dish.id %}">
+          action="{% url 'update_dish' dish.id %}" >
         {% csrf_token %}
 
         <div class="form-group">
             <label>Dish Name</label>
-            <input type="text" name="name" value="{{ dish.name }}" required>
+            <input type="text" name="name" value="{{ dish.name }}"  id="name" >
         </div>
 
         <div class="form-group">
@@ -74,9 +74,8 @@ textarea {
         <div class="form-group">
             <label>Restaurant</label>
             <select name="restaurant" required>
-                {% for r in restaurants %}
-                <option value="{{ r.name }}"
-                    {% if dish.restaurant.name == r.name %}selected{% endif %}>
+                {% for r in restaurant %}
+                <option value="{{ r.name }}" {% if dish.restaurant.name == r.name %}selected{% endif %}>
                     {{ r.name }}
                 </option>
                 {% endfor %}
@@ -86,7 +85,7 @@ textarea {
         <div class="form-group">
             <label>Food Type</label>
             <select name="food_type">
-                {% for f in food_types %}
+                {% for f in FoodType %}
                 <option value="{{ f.name }}"
                     {% if dish.food_type.name == f.name %}selected{% endif %}>
                     {{ f.name }}
@@ -119,7 +118,7 @@ textarea {
                     Veg
                 </label>
                 <label>
-                    <input type="radio" name="veg_nonveg" value="non_veg"
+                    <input type="radio" name="veg_nonveg" value="non-veg"
                         {% if dish.veg_nonveg == 'non_veg' %}checked{% endif %}>
                     Non Veg
                 </label>
@@ -129,5 +128,7 @@ textarea {
         <button type="submit" class="btn-submit">Update Dish</button>
     </form>
 </div>
+
+
 
 {% endblock %}

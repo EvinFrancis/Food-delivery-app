@@ -110,4 +110,15 @@ def service_page(request):
     service=serviceDb.objects.all()
     return render (request,"service.html",{"service":service})
 
+ #single restaurant page
+def single_restaurant_page(request,rst_name):
+    dishes=dishesDb.objects.filter(restaurant=rst_name)
+
+    
+    return render(request,'single_rest.html',{"dishes":dishes})
+
+def single_dish_page(request,dish_id):
+    dish=dishesDb.objects.get(id=dish_id)
+    return render(request,'single_dishes.html',{"dish":dish})
+
 

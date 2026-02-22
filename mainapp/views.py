@@ -171,7 +171,11 @@ def delete_dish(request,dish_id):
 #edit dishes
 def edit_dish(request,dish_id):
     dish=dishesDb.objects.get(id=dish_id)
-    return render(request,'edit_dishes.html',{'dish':dish})
+    restaurant=restaurantDb.objects.all()
+    foodType=FoodType.objects.all()
+    return render(request,'edit_dishes.html',{'dish':dish,
+                                              "FoodType":foodType,  
+                                              "restaurant":restaurant})
 
 #service page
 def add_service_page(request):
@@ -185,7 +189,11 @@ def update_dish(request,dish_id):
     price=request.POST.get('price')
     food_type=request.POST.get('food_type')
     restaurant=request.POST.get('restaurant')
-    dish_image=request.FILES.get('dish_image')
+
+    if request.FILES.get('dish_image'): 
+        dish_image=request.FILES.get('dish_image')
+    else:
+        dish_image=dishesDb.objects.get(id=dish_id).dish_image
     veg_nonveg=request.POST.get('veg_nonveg')
     obj=dishesDb.objects.filter(id=dish_id).update(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
     return redirect(view_dishes)

@@ -12,5 +12,7 @@ urlpatterns=[
     path('contact_us/',views.contact_us,name='contact_us'),
     path('save_contact/',views.save_contact,name='save_contact'),
     path('service_page/',views.service_page,name='service_page'),
+    path('single_restaurant_page/<rst_name>/',views.single_restaurant_page,name='single_restaurant_page'),
+    path('single_dish_page/<int:dish_id>/',views.single_dish_page,name='single_dish_page'),
 
 ]

@@ -58,12 +58,13 @@
 <div class="form-card">
     <h2>Add Dish</h2>
 
-    <form method="POST" enctype="multipart/form-data" action="{% url 'save_dishes' %}">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'save_dishes' %}"
+    onsubmit="return form_validation()">
         {% csrf_token %}
 
         <div class="form-group">
             <label>Dish Name</label>
-            <input type="text" name="name" required>
+            <input type="text" name="name" id='name' >
         </div>
 
         <div class="form-group">
@@ -108,7 +109,7 @@
     Veg
   </label>
   <label>
-    <input type="radio" name="veg_nonveg" value="non_veg" >
+    <input type="radio" name="veg_nonveg" value="non-veg" >
     Non Veg
   </label>
 </div>
@@ -120,4 +121,16 @@
     </form>
 </div>
 
+<script>
+    function form_validation(){
+        let name = document.getElementById("name").value;
+        if (name == "") {
+            alert("Please enter a dish name");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+</script>
 {% endblock %}
