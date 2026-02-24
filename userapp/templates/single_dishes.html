@@ -24,7 +24,7 @@
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h3>{{dish.name}}</h3>
-						<h2>${{ dish.price}}</h2>
+						<h2 id="price" data-price="{{ dish.price }}" >${{ dish.price}}</h2>
 						<ul class="list">
 							<li><a class="active" href="#"><span>Category</span>{{dish.veg_nonveg}}</a></li>
 							<li><a href="#"><span>Restaurant</span> {{ dish.restaurant}}</a></li>
@@ -34,11 +34,16 @@
               <label for="qty">Quantity:</label>
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<input type="number" name="qty" id="quant"  min=1 max=20 title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+			    
 							<a class="button primary-btn" href="{% url 'view_cart'  %}">Add to Cart</a>               
 						</div>
+						<div >
+							<label for="qty">Total:</label>
+                             <input type="text"  id="total" placeholder="Total"   readonly>
+                                </div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
@@ -49,6 +54,7 @@
 		</div>
 	</div>
 	<!--================End Single Product Area =================-->
+	
 
 	<!--================Product Description Area =================-->
 	<section class="product_description_area">
@@ -571,5 +577,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+
 	<!--================ End footer Area  =================-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function () {
+			
+			$("#quant").change(function () {
+			let x=Number(document.getElementById("quant").value);
+			let y=Number(document.getElementById("price").getAttribute("data-price"));
+			document.getElementById("total").value= x*y +".RS";
+		})
+				
+			})
+		
+	</script>
+
+
 {% endblock %}
