@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from mainapp.models import *
+from django.contrib import messages
 
 # Create your views here.
 #dashboard
@@ -55,6 +56,7 @@ def save_food_type(request):
         foodimage=request.FILES.get('foodimage')
         foodtype=FoodType(name=name,description=description,foodimage=foodimage)
         foodtype.save()
+        messages.success(request,'Food type added successfully')
         return redirect(add_food_type_page)
  #view food types   
 def view_food_types(request):
