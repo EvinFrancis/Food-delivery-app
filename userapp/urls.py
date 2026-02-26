@@ -14,5 +14,7 @@ urlpatterns=[
     path('service_page/',views.service_page,name='service_page'),
     path('single_restaurant_page/<rst_name>/',views.single_restaurant_page,name='single_restaurant_page'),
     path('single_dish_page/<int:dish_id>/',views.single_dish_page,name='single_dish_page'),
+    path('cart_saved/',views.cart_saved,name='cart_saved'),
+    path('checkout/',views.checkout,name='checkout'),
 
 ]

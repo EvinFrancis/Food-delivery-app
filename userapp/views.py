@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from mainapp.models import *
 from userapp.models import *
-
+from decimal import Decimal
 
 
 
@@ -102,8 +102,7 @@ def user_logout(request):
             
 
 #view cart page
-def view_cart(request):
-    return render(request,'cart_page.html')
+
 
 #sevice page
 def service_page(request):
@@ -121,4 +120,39 @@ def single_dish_page(request,dish_id):
     dish=dishesDb.objects.get(id=dish_id)
     return render(request,'single_dishes.html',{"dish":dish})
 
+def cart_saved(request):
+    if request.method=='POST':
+        username=request.session['username']
+        dish_name=request.POST.get('dish_name')
+        price=Decimal(request.POST.get('price'))
+        quantity=request.POST.get('qty')
+        total_price=Decimal(request.POST.get('total'))
+        pro=dishesDb.objects.filter(name=dish_name).first()
+        product_image=pro.dish_image if pro else None
 
+        obj=cartdb(username=username,product_name=dish_name,price=price,quantity=quantity,total_price=total_price,product_image=product_image)
+        obj.save()
+        return redirect(view_cart)
+
+
+def view_cart(request):
+    data1=cartdb.objects.filter(username=request.session['username'])
+    subtotal=0
+    delivery=0
+    grand_total=0
+    for i in data1:
+        subtotal+=i.total_price
+        if subtotal>500:
+            delivery=0
+        else:
+            delivery=50
+        grand_total=subtotal+delivery   
+    return render(request,'cart_page.html',{"data":data1,
+                                            "subtotal":subtotal,
+                                            "delivery":delivery,
+                                            "grand_total":grand_total
+                                            })
+
+
+def checkout(request):
+    return render(request,'check_out.html')

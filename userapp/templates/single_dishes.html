@@ -9,6 +9,8 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
+					<form method="POST" action="{% url 'cart_saved' %}" enctype="multipart/form-data">
+						{% csrf_token %}
 					<div class="owl-carousel owl-theme s_Product_carousel">
 						<div class="single-prd-item">
 							<img class="img-fluid" src="{{ dish.dish_image.url}}" alt="">
@@ -24,26 +26,33 @@
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h3>{{dish.name}}</h3>
-						<h2 id="price" data-price="{{ dish.price }}" >${{ dish.price}}</h2>
+						<h2   >${{ dish.price}}</h2>
 						<ul class="list">
 							<li><a class="active" href="#"><span>Category</span>{{dish.veg_nonveg}}</a></li>
 							<li><a href="#"><span>Restaurant</span> {{ dish.restaurant}}</a></li>
+							<input type="hidden" id="price"  name='price' value="{{dish.price}}">
+							<input type="hidden" id="dish_name"  name='dish_name' value="{{dish.name}}">
 						</ul>
 						<p>{{dish.description}}</p>
 						<div class="product_count">
               <label for="qty">Quantity:</label>
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="number" name="qty" id="quant"  min=1 max=20 title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+              
+							<input type="number" name="qty" id="quant"  min=1 max=20 title="Quantity:"  placeholder="1" class="input-text qty">
+						
 			    
-							<a class="button primary-btn" href="{% url 'view_cart'  %}">Add to Cart</a>               
+							               
 						</div>
 						<div >
 							<label for="qty">Total:</label>
-                             <input type="text"  id="total" placeholder="Total"   readonly>
+							
+                             <input type="text"  id="total" name="total" placeholder="Total"   readonly>
                                 </div>
+								{% if request.session.username %}
+								<button type="submit" class="button primary-btn" >Add to Cart </button>
+								 {% else %}
+								    <a href="{% url 'sign_in_page' %}" class="primary-btn">LOGIN TO ADD TO CART</a>
+
+								   {% endif %}
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
@@ -51,6 +60,7 @@
 					</div>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div>
 	<!--================End Single Product Area =================-->
@@ -585,8 +595,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			
 			$("#quant").change(function () {
 			let x=Number(document.getElementById("quant").value);
-			let y=Number(document.getElementById("price").getAttribute("data-price"));
-			document.getElementById("total").value= x*y +".RS";
+			let y=Number(document.getElementById("price").value);
+			document.getElementById("total").value= x*y ;
 		})
 				
 			})
