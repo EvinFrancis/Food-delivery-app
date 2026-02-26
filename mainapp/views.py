@@ -66,6 +66,7 @@ def view_food_types(request):
 def delete_food_type(request,food_id):
     foodtype=FoodType.objects.get(id=food_id)
     foodtype.delete()
+    messages.error(request,'Food type deleted successfully')
     return redirect(view_food_types)
 
 
@@ -85,6 +86,7 @@ def update_food_type(request,food_id):
             foodimage=FoodType.objects.get(id=food_id).foodimage
         obj=FoodType.objects.filter(id=food_id).update(name=foodname,description=description,foodimage=foodimage)
         # no need to  obj.save()
+        messages.success(request,'Food type updated successfully')
         return redirect(view_food_types)
     
 
@@ -101,6 +103,7 @@ def save_restaurant(request):
         restaurant_image=request.FILES.get('restaurant_image')
         obj=restaurantDb(name=name,address=address,contact_number=contact_number,restaurant_image=restaurant_image)
         obj.save()
+        messages.success(request,'Restaurant added successfully')
         return redirect(add_restaurant_page)
     #view restaurants``
 def view_restaurants(request):
@@ -112,6 +115,7 @@ def view_restaurants(request):
 def delete_restaurant(request,rest_id): 
     restaurant=restaurantDb.objects.get(id=rest_id)
     restaurant.delete() 
+    messages.error(request,'Restaurant deleted successfully')
     return redirect(view_restaurants)
 
 #edit restaurant
@@ -157,6 +161,7 @@ def save_dishes(request):
         
         obj=dishesDb(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
         obj.save()
+        messages.success(request,'Dish added successfully')
         return redirect(add_dishes_page)
 
 #view dishes
@@ -168,6 +173,7 @@ def view_dishes(request):
 def delete_dish(request,dish_id): 
     dish=dishesDb.objects.get(id=dish_id) 
     dish.delete()
+    messages.error(request,'Dish deleted successfully')
     return redirect(view_dishes)
 
 #edit dishes
@@ -198,6 +204,7 @@ def update_dish(request,dish_id):
         dish_image=dishesDb.objects.get(id=dish_id).dish_image
     veg_nonveg=request.POST.get('veg_nonveg')
     obj=dishesDb.objects.filter(id=dish_id).update(name=name,description=description,price=price,food_type=food_type,restaurant=restaurant,dish_image=dish_image,veg_nonveg=veg_nonveg)
+    messages.success(request,'Dish updated successfully')
     return redirect(view_dishes)
 
 #save service
@@ -208,6 +215,7 @@ def save_service(request):
         ServiceImage=request.FILES.get('ServiceImage')
         obj=serviceDb(ServiceName=ServiceName,Description=Description,ServiceImage=ServiceImage)
         obj.save()
+        messages.success(request,'Service added successfully')
         return redirect(add_service_page)
 
 #view service
@@ -237,13 +245,16 @@ def update_service(request,service_id):
 # 🔹 Zero or many objects → filter()
         else:
             ServiceImage=serviceDb.objects.get(id=service_id).ServiceImage
+        
         obj=serviceDb.objects.filter(id=service_id).update(ServiceName=service_name,Description=Description,ServiceImage=ServiceImage)
+        messages.success(request,'Service updated successfully')
         return redirect(view_service)
 
 #delete service
 def delete_service(request,service_id):
     service=serviceDb.objects.get(id=service_id)
     service.delete()
+    messages.error(request,'Service deleted successfully')
     return redirect(view_service)
 
 

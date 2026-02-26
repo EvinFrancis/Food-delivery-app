@@ -124,7 +124,7 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{% url 'edit_dish' dish_id=dish.id %}" class="btn btn-edit">Edit</a>
+                <a href="{% url 'edit_dish' dish_id=dish.id %}" class="btn btn-edit" style="width: 65px ; margin-bottom: 5px">Edit</a>
 
                 <a href=" {% url "delete_dish" dish_id=dish.id   %}"
                    class="btn btn-delete"
@@ -140,5 +140,28 @@
         {% endfor %}
     </tbody>
 </table>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+ {% if messages %}
+  {% for msg in messages %}
+     {% if msg.tags == 'success' %}
+     <script>
+     swal("{{msg}}",' ', "success");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'error' %}
+     <script>
+     swal("{{msg}}",' ', "error");
+     </script>
+     
+     {% endif %}
+     {% if msg.tags == 'warning' %}
+     <script>
+     swal("{{msg}}",' ', "warning");
+     </script>
+     
+     {% endif %}
+  {% endfor %}
+{% endif %}
 {% endblock %}
