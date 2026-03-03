@@ -16,5 +16,10 @@ urlpatterns=[
     path('single_dish_page/<int:dish_id>/',views.single_dish_page,name='single_dish_page'),
     path('cart_saved/',views.cart_saved,name='cart_saved'),
     path('checkout/',views.checkout,name='checkout'),
+    path('delete_cart/<int:cart_id>/',views.delete_cart,name='delete_cart'),
+    path('checkout_save/',views.checkout_save,name='checkout_save'),
+    path('paytment_page/',views.paytment_page,name='paytment_page'),
+
+
 
 ]

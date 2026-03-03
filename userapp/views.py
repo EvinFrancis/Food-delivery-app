@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from mainapp.models import *
 from userapp.models import *
 from decimal import Decimal
+from django.contrib import messages
 
 
 
@@ -15,9 +16,11 @@ def user_dashboard(request):
     restaurant=restaurantDb.objects.all()
     dishes=dishesDb.objects.all()
     latest_rest=restaurantDb.objects.first()
+    second_latest = restaurantDb.objects.order_by('-id')[1]
     return render(request,'index.html',{'restaurant':restaurant,
                                         'dishes':dishes,
-                                        'latest_rest':latest_rest})  
+                                        'latest_rest':latest_rest,
+                                        'second_latest':second_latest})  
 
 #contact us page
 def contact_us_page(request):
@@ -155,4 +158,54 @@ def view_cart(request):
 
 
 def checkout(request):
-    return render(request,'check_out.html')
+    username = request.session.get('username')
+
+    if not username:
+       return redirect(sign_in_page)
+
+    data1 = cartdb.objects.filter(username=username)
+
+
+    subtotal=0
+    delivery=0
+    grand_total=0
+    for i in data1:
+        subtotal+=i.total_price
+        if subtotal>500:
+            delivery=0
+        else:
+            delivery=50
+        grand_total=subtotal+delivery   
+    return render(request,'check_out.html',{"data":data1,
+                                            "subtotal":subtotal,
+                                            "delivery":delivery,
+                                            "grand_total":grand_total
+                                            })
+
+#delet cart
+def delete_cart(request,cart_id):
+    
+    cartdb.objects.filter(id=cart_id).delete()
+    messages.error(request,"Product deleted successfully")
+    return redirect(view_cart)
+
+
+#save chcout page
+def checkout_save(request):
+     if request.method=="POST":
+        firstname=request.POST.get("first_name")
+        lastname=request.POST.get("last_name") 
+        country=request.POST.get("country")
+        address=request.POST.get("address")
+        city=request.POST.get("city")
+        state=request.POST.get("state")
+        pincode=request.POST.get("pincode")
+        email=request.POST.get("email")
+        phone=request.POST.get("phone")
+        totalprice=request.POST.get("grand_total")
+        obj=chechoutdb(firstname=firstname,lastname=lastname,country=country,address=address,city=city,pin=pincode,email=email,mobile=phone,totalprice=totalprice)
+        obj.save()
+        return redirect(paytment_page)
+     
+def  paytment_page(request):
+        return render(request,'paymentpage.html')   

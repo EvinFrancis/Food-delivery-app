@@ -19,4 +19,17 @@ class cartdb(models.Model):
 
     def __str__(self):
         return self.username
+
+
+class chechoutdb(models.Model):
+    firstname=models.CharField(max_length=100)
+    lastname=models.CharField(max_length=100)
+    country=models.CharField(max_length=100)
+    address=models.CharField(max_length=100)
+    city=models.CharField(max_length=100)
+    pin=models.CharField(max_length=100,null=True,blank=True)
+    mobile=models.CharField(max_length=100)
+    email=models.EmailField(max_length=100)
+    totalprice=models.IntegerField(max_length=100)
+
     

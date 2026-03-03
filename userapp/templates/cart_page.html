@@ -73,12 +73,18 @@
                               <td>
                                   <h5>RS.{{i.total_price}}</h5>
                               </td>
+							  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"></script>
+							  <td class="shoping__cart__item__close">
+                                       <a href="{% url 'delete_cart' cart_id=i.id %}" class="primary-btn cart-btn"> 
+                                        <span class="icon_close">X</span></a>
+                                    </td>
                           </tr>
                           
                           {% endfor %}
                           
                       </tbody>
                   </table>
+				  
               </div>
               <div class="col-lg-6">
                     <div class="shoping__checkout">
