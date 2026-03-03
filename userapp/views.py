@@ -5,6 +5,7 @@ from mainapp.models import *
 from userapp.models import *
 from decimal import Decimal
 from django.contrib import messages
+import razorpay
 
 
 
@@ -13,23 +14,43 @@ from django.contrib import messages
 
 #user dsahboard
 def user_dashboard(request):
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
     restaurant=restaurantDb.objects.all()
     dishes=dishesDb.objects.all()
     latest_rest=restaurantDb.objects.first()
     second_latest = restaurantDb.objects.order_by('-id')[1]
+
     return render(request,'index.html',{'restaurant':restaurant,
                                         'dishes':dishes,
                                         'latest_rest':latest_rest,
-                                        'second_latest':second_latest})  
+                                        'second_latest':second_latest,
+                                        "cart_total":cart_total})  
 
 #contact us page
 def contact_us_page(request):
-    return render(request,'contact.html') 
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
+    return render(request,'contact.html',{"cart_total":cart_total}) 
  
 #dishes page
 def dishes_page(request):
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
     dishes=dishesDb.objects.all()
-    return render(request,'dishes.html',{'dishes':dishes})
+    return render(request,'dishes.html',{'dishes':dishes,"cart_total":cart_total})
 #restaurant page
 def restaurant_page(request):
     restaurant=restaurantDb.objects.all()
@@ -104,7 +125,7 @@ def user_logout(request):
     return redirect(user_dashboard)
             
 
-#view cart page
+
 
 
 #sevice page
@@ -114,14 +135,28 @@ def service_page(request):
 
  #single restaurant page
 def single_restaurant_page(request,rst_name):
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
     dishes=dishesDb.objects.filter(restaurant=rst_name)
 
     
-    return render(request,'single_rest.html',{"dishes":dishes})
+    return render(request,'single_rest.html',{"dishes":dishes,
+                                              "cart_total":cart_total})
 
 def single_dish_page(request,dish_id):
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
     dish=dishesDb.objects.get(id=dish_id)
-    return render(request,'single_dishes.html',{"dish":dish})
+    return render(request,'single_dishes.html',{"dish":dish,
+                                                "cart_total":cart_total})
 
 def cart_saved(request):
     if request.method=='POST':
@@ -138,7 +173,19 @@ def cart_saved(request):
         return redirect(view_cart)
 
 
+#view cart page
+
 def view_cart(request):
+    uname = request.session.get('username')
+    cart_total=0
+
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
+    username = request.session.get('username')
+
+    if not username:
+       return redirect(sign_in_page)
     data1=cartdb.objects.filter(username=request.session['username'])
     subtotal=0
     delivery=0
@@ -153,7 +200,7 @@ def view_cart(request):
     return render(request,'cart_page.html',{"data":data1,
                                             "subtotal":subtotal,
                                             "delivery":delivery,
-                                            "grand_total":grand_total
+                                            "grand_total":grand_total,"cart_total":cart_total
                                             })
 
 
@@ -213,5 +260,26 @@ def  paytment_page(request):
     if not username:
             return redirect(sign_in_page)
 
+
     
-    return render(request,'paymentpage.html')   
+    uname = request.session.get('username')
+    cart_total=0
+    if uname:
+    
+            cart_total=cartdb.objects.filter(username=uname).count()
+    customer=chechoutdb.objects.order_by('-id').first()
+    payy=customer.totalprice
+    amount=int(payy*100)
+    payy_str=str(amount)
+    
+    if request.method=="POST":
+         order_currency="INR"
+         client=razorpay.Client(auth=("rzp_test_0ib0jPwwZ7I1lT", "VjHNO5zKeKxz8PYe7VnzwxMR"))
+         payment=client.order.create({'amount':amount,'currency':order_currency})
+         
+    
+    return render(request,'paymentpage.html',{"cart_total":cart_total,
+         "payy_str":payy_str
+    })
+
+          

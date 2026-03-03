@@ -100,11 +100,12 @@
                         </ul> {% endcomment %}
                         
                             
-                        
+                        <form>
                         <div class="text-center">
                             <button type="submit" class="site-btn">
                           <a class="button button-paypal" >Proceed to Payment</a>
-                        </button>                        </div>
+                        </button>   
+                                         </div></form>
                     </div>
                 </div>
                 </form>
@@ -206,5 +207,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 	<!--================ End footer Area  =================-->
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js" 
+    data-key="rzp_test_0ib0jPwwZ7I1lT"
+    data-amount="{{payy_str}}"
+    data-currency="INR"
+    data-order_id="{{payment.order_id}}"
+    data-name="Easy Grocery"
+    data-description="Easy grocery payment"
+    data-prefill.name="Easy Grocery"
+    data-theme.color="#f1c40f">
+</script>
 
 {% endblock content %}

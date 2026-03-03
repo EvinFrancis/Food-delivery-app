@@ -29,10 +29,10 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h3>Billing Details</h3>
-                    <form class="row contact_form" action="{% url 'checkout_save' %}" method="post" novalidate="novalidate">
+                    <form class="row contact_form" action="{% url 'checkout_save' %}" method="post" >
                         {% csrf_token %}
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="first" name="first_name" placeholder="First name" required>
+                            <input type="text" class="form-control" id="first" name="first_name" placeholder="First name" required >
                             
                         </div>
                         <div class="col-md-6 form-group p_star">
@@ -47,7 +47,7 @@
                             <span class="placeholder" ></span>
                         </div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="email" name="email"placeholder="Email Address" required>
+                            <input type="email" class="form-control" id="email" name="email"placeholder="Email Address" required>
                             <span class="placeholder" ></span>
                         </div>
                         
@@ -87,12 +87,12 @@
                             <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
                             {% for i in data %}
                                    
-                                    <li>{{ i.product_name }}    <span>{{  i.total_price }}</span></li>
+                                    <li>{{ i.product_name }}  ---------------- <span style="font-weight: bold; color: green">{{  i.total_price }}</span></li>
                                    
                                 {% endfor %}
                             
                         <ul class="list list_2">
-                            <li><a href="#">Subtotal <span>Rs.{{ subtotal }}</span></a></li>
+                            <li><a href="#">Subtotal <span style="font-weight: bold; color: green">Rs.{{ subtotal }}</span></a></li>
                             <li><a href="#">Shipping Charge <span>Rs.{{ delivery }}</span></a></li>
                             <li><a href="#">Total <span>Rs.{{ grand_total }}</span></a></li>
                             <input type="hidden" name="grand_total" value="{{ grand_total }}">
