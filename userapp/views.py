@@ -208,4 +208,10 @@ def checkout_save(request):
         return redirect(paytment_page)
      
 def  paytment_page(request):
-        return render(request,'paymentpage.html')   
+    username = request.session.get('username')
+
+    if not username:
+            return redirect(sign_in_page)
+
+    
+    return render(request,'paymentpage.html')   

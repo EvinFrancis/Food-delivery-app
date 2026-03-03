@@ -1,0 +1,210 @@
+ {% extends "index.html" %}
+{% block content %}
+<!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Payment Page</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  
+  <!--================Checkout Area =================-->
+  {% comment %} <section class="checkout_area section-margin--small">
+    <div class="container">
+        
+
+        
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <form class="row contact_form" action="{% url 'checkout_save' %}" method="post" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="first" name="first_name" placeholder="First name" required>
+                            
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="last" name="last_name" placeholder="Last name" required >
+                            <span class="placeholder" data-placeholder="Last name"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="company" name="country" placeholder="Country">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="number" name="phone" placeholder="Phone number" required>
+                            <span class="placeholder" ></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="email" name="email"placeholder="Email Address" required>
+                            <span class="placeholder" ></span>
+                        </div>
+                        
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="add1" name="address" placeholder="Address line 01">
+                            <span class="placeholder" data-placeholder="Address line 01"></span>
+                        </div>
+                        
+                        <div class="col-md-12 form-group p_star">
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Town/City">
+                         
+                        </div>
+                        
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="zip" name="pincode" placeholder="Postcode/ZIP" required>
+                        </div>
+                        {% comment %} <div class="col-md-12 form-group">
+                            <div class="creat_account">
+                                <input type="checkbox" id="f-option2" name="selector">
+                                <label for="f-option2">Create an account?</label>
+                            </div>
+                        </div> {% endcomment %}
+                        {% comment %} <div class="col-md-12 form-group mb-0">
+                            <div class="creat_account">
+                                <h3>Shipping Details</h3>
+                                <input type="checkbox" id="f-option3" name="selector">
+                                <label for="f-option3">Ship to a different address?</label>
+                            </div>
+                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
+                        </div> {% endcomment %}
+                    
+                {% comment %} </div>
+                <div class="col-lg-4">
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
+                            {% for i in data %}
+                                   
+                                    <li>{{ i.product_name }}    <span>{{  i.total_price }}</span></li>
+                                   
+                                {% endfor %} {% endcomment %} 
+                            
+                        {% comment %} <ul class="list list_2">
+                            <li><a href="#">Subtotal <span>Rs.{{ subtotal }}</span></a></li>
+                            <li><a href="#">Shipping Charge <span>Rs.{{ delivery }}</span></a></li>
+                            <li><a href="#">Total <span>Rs.{{ grand_total }}</span></a></li>
+                            <input type="hidden" name="grand_total" value="{{ grand_total }}">
+
+                        </ul> {% endcomment %}
+                        
+                            
+                        
+                        <div class="text-center">
+                            <button type="submit" class="site-btn">
+                          <a class="button button-paypal" >Proceed to Payment</a>
+                        </button>                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!--================End Checkout Area =================-->
+
+
+
+  <!--================ Start footer Area  =================-->	
+	<footer>
+		<div class="footer-area footer-only">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets ">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no 
+								divided deep moved us lan Gathering thing us land years living.
+							</p>
+							<p>
+								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="#">Home</a></li>
+								<li><a href="#">Shop</a></li>
+								<li><a href="#">Blog</a></li>
+								<li><a href="#">Product</a></li>
+								<li><a href="#">Brand</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="img/gallery/r1.jpg" alt=""></li>
+								<li><img src="img/gallery/r2.jpg" alt=""></li>
+								<li><img src="img/gallery/r3.jpg" alt=""></li>
+								<li><img src="img/gallery/r5.jpg" alt=""></li>
+								<li><img src="img/gallery/r7.jpg" alt=""></li>
+								<li><img src="img/gallery/r8.jpg" alt=""></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br>
+									+123 456 7890
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									free@infoexample.com <br>
+									www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row d-flex">
+					<p class="col-lg-12 footer-text text-center">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+
+
+{% endblock content %}
