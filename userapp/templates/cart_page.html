@@ -61,13 +61,14 @@
                                   <h5>Rs.{{i.price}}</h5>
                               </td>
                               <td>
-                                  <div class="product_count">
-                                      <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                          class="input-text qty">{{i.quantity}}
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                          class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                      <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                          class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                  <div>
+									<form method="post" action="{% url 'update_quantity_cart' cart_id=i.id %}">
+										{% csrf_token %}
+										<button  type="submit" name="action" value="minus" class="reduced items" >-</button>
+                                      <input type="text" name="qty" id="sst" maxlength="12" value="{{i.quantity}}" title="Quantity:"
+                                          class="input-text qty"  style="width:40px; padding:15px">
+										<button  type="submit" name="action" value="plus" class="reduced items" >+</button>
+                                    </form>
                                   </div>
                               </td>
                               <td>
